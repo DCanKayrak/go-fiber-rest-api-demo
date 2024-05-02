@@ -28,6 +28,23 @@ func NewUserController(userQueryService query.IUserQueryService, userCommandHand
 	}
 }
 
+// Save godoc
+
+//	@Summary		This method used for saving new user
+//	@Description	saving new user
+//
+// @Param requestBody body request.UserCreateRequest nil "Handle Request Body"
+//
+//	@Tags			User
+//	@Accept			json
+//	@Produce		json
+//
+// @Success 200
+//
+//	@Failure		400
+//	@Failure		404
+//	@Failure		500
+//	@Router			/api/v1/user [post]
 func (c *userController) Save(ctx *fiber.Ctx) error {
 	var req request.UserCreateRequest
 	err := ctx.BodyParser(&req)
@@ -46,6 +63,21 @@ func (c *userController) Save(ctx *fiber.Ctx) error {
 	return ctx.Status(http.StatusOK).JSON("User Created Successfully")
 }
 
+// GetUserById godoc
+//
+//	@Summary		This method get user by given id
+//	@Description	get user by id
+//	@Tags			User
+//	@Accept			json
+//	@Produce		json
+//	@Param			userId	path		string	true	"userId"
+//
+// @Success 200 {object} response.UserResponse
+//
+//	@Failure		400
+//	@Failure		404
+//	@Failure		500
+//	@Router			/api/v1/user/{userId} [get]
 func (c *userController) GetUserById(ctx *fiber.Ctx) error {
 	userId := ctx.Params("userId")
 
@@ -64,6 +96,20 @@ func (c *userController) GetUserById(ctx *fiber.Ctx) error {
 	return ctx.Status(http.StatusOK).JSON(response.ToUserResponse(user))
 }
 
+// GetUser godoc
+//
+//	@Summary		This method used for get all users
+//	@Description	get all users
+//	@Tags			User
+//	@Accept			json
+//	@Produce		json
+//
+// @Success 200 {object} []response.UserResponse
+//
+//	@Failure		400
+//	@Failure		404
+//	@Failure		500
+//	@Router			/api/v1/user [get]
 func (c *userController) GetUser(ctx *fiber.Ctx) error {
 	fmt.Printf("userController.GetUser INFO - Started \n")
 
